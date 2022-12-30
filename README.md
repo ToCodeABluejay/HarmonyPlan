@@ -6,6 +6,7 @@ This software serves pretty much the same exact functionality, however a lot of 
 Note: this software can be used to quickly and efficiently calculate a multi-year economic plan for an industrial economy. This software can only be used to do the plain material and labor calculations. This is be itself insufficient to create a full collectively own, democratically run, socialist planned economy. 
 
 Other things which are not currently taken into consideration:
+
 	* Renumeration (how to determine how people get paid)
 	* Distribution (similar to renumeration but in some ways distinct)
 	* Foreign trade (while targets for a product or an industry can be estimated, it does not include how those numbers are created and the various different other facets which may affect things concerning international trade)
