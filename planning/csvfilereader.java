@@ -4,29 +4,33 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.Path;
 /** This parses csv files meeting the official UK standard for such files at https://www.ofgem.gov.uk/sites/default/files/docs/2013/01/csvfileformatspecif(ication.pdf
-<p>
-   Copyright (C) 2018 William Paul Cockshott
-
-   This program is free software: you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation, either version 3 of the License, or
-   (at your option) any later version.
-
-   This program is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License
-   along with this program.  If not, see <https://www.gnu.org/licenses/>.
-   * */
+ *
+ *   Copyright (C) 2018 William Paul Cockshott
+ *   Copyright (C) 2022 Gabriel James Bauer
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see https://www.gnu.org/licenses/.
+ */
 
 public
 class csvfilereader {
 
     static final int textlen=80;
 
-    public static void main(String [] args) {
+    public static void main(String [] args)
+    /** returns null for file that can not be opened, otherwise
+     returns pointer to tree of csvcells. */
+    {
         if (args.length<1) {
             System.out.println(" Usage java csvfilereader file.cvs");
         } else {
@@ -41,8 +45,7 @@ class csvfilereader {
             }
         }
     }
-    /** returns null for file that can not be opened, otherwise
-     returns pointer to tree of csvcells. */
+    
 
 
     static final int FD=34, /* field delimitor */
@@ -51,8 +54,9 @@ class csvfilereader {
                      EOI=0x1a,
                      CR=13;
     enum token {FDsym,FSsym,RSsym,EOFsym,space,any}
-
-    token[] categorisor=new token[128] ;
+    token[] categorisor=new token[128];
+   
+   
     void recurse(int j,int i,pcsv q,double[][] m) {
         if( q != null ) {
             if( i>=1 ) {
@@ -95,7 +99,6 @@ class csvfilereader {
     }
     public  String[] getcolheaders( pcsv p) {
         /** extract the column headers */
-
         String[] h ;
         if( p== null ) {
             return null;
@@ -128,20 +131,20 @@ class csvfilereader {
         if( p == null ) {
             return 0;
         } else {
-            if( p .tag instanceof      linestart    )    return colcount(p .right);
-            if (p.tag instanceof numeric || p.tag instanceof alpha)return 1+colcount(p .right);
+            if(p .tag instanceof linestart) return colcount(p .right);
+            if (p.tag instanceof numeric || p.tag instanceof alpha) return 1+colcount(p .right);
         }
         return 0;
     }
 
-    boolean onlynulls(pcsv q ) {
-        if( q== null ) return false;
-        else if( q .tag instanceof alpha ) {
-            return ( q .right== null ) && (((alpha)(q.tag)).textual.equals(""));
+    boolean onlynulls(pcsv q) {
+        if(q==null) return false;
+        else if(q .tag instanceof alpha) {
+            return (q .right== null) && (((alpha)(q.tag)).textual.equals(""));
         } else return false;
     }
-    void removetrailingnull( pcsv p ) {
-        if( p != null ) {
+    void removetrailingnull(pcsv p) {
+        if(p!=null) {
             if( p .tag instanceof linestart) {
                 if( ((((linestart)(p.tag)) .down== null ) && onlynulls(p .right)) ) p.right = null;
                 else removetrailingnull(((linestart)(p.tag)) .down);
@@ -149,8 +152,8 @@ class csvfilereader {
         }
     }
     int rowcount(pcsv p) {
-        if( p == null ) return 0;
-        else if( p .tag instanceof linestart)return 1+rowcount(((linestart)(p.tag)) .down);
+        if(p==null) return 0;
+        else if(p .tag instanceof linestart)return 1+rowcount(((linestart)(p.tag)) .down);
         if (p.tag instanceof numeric|| p.tag instanceof alpha)return 1;
         return 0;
     }
@@ -171,8 +174,8 @@ class csvfilereader {
     void nextsymbol() {
         if( currentchar < bp.length ) currentchar = currentchar+1;
     }
-    boolean have( token c) {
-        if( peek(c) ) {
+    boolean have(token c) {
+        if(peek(c)) {
             nextsymbol();
             return true;
         } else
@@ -195,7 +198,7 @@ class csvfilereader {
         return Math.min(a, b);
     }
     void resolvealpha() {
-            lastfield.tag =    new alpha("");
+            lastfield.tag = new alpha("");
     }
 
     void resolvedigits() {
@@ -220,18 +223,22 @@ class csvfilereader {
         else resolvealpha();
     }
 
-    void markbegin() { /* mark start of a field */
+    void markbegin()
+    /** mark start of a field */
+    {
         tokstart = currentchar;
         lastfield .right=new pcsv();
         lastfield = lastfield .right;
         lastfield .right = null ;
     }
-    void markend() { /* marks the endof a field */
+    void markend()
+    /** marks the endof a field */
+    {
         tokend = currentchar;
 
         resolvetoken();
     }
-    void setalpha( String s ) {
+    void setalpha(String s) {
         lastfield .tag = new alpha(s);
     }
     void emptyfield() {
@@ -320,7 +327,7 @@ class csvfilereader {
             Path path = Paths.get(theFilename);
             bp= Files.readAllBytes(path);
             currentchar = 0;
-            /** We now have the csv file in memory - parse it */
+            /* We now have the csv file in memory - parse it */
             parsewholefile();
             removetrailingnull(firstrecord);
             return firstrecord;
