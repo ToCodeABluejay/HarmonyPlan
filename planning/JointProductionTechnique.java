@@ -1,35 +1,36 @@
 package planning;
 import java.util.*;
 /** A class to represent a set of production technologies in a more compact
-  form than as an input output table or matrix. It can take advantage
-  of the sparse character of large io tables.
-  This extends the base class Technique to add possible co-products
-  <p>
-       Copyright (C) 2018 William Paul Cockshott
-
-       This program is free software: you can redistribute it and/or modify
-       it under the terms of the GNU General Public License as published by
-       the Free Software Foundation, either version 3 of the License, or
-       (at your option) any later version.
-
-       This program is distributed in the hope that it will be useful,
-       but WITHOUT ANY WARRANTY; without even the implied warranty of
-       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-       GNU General Public License for more details.
-
-       You should have received a copy of the GNU General Public License
-       along with this program.  If not, see https://www.gnu.org/licenses/.
-    * */
+ *  form than as an input output table or matrix. It can take advantage
+ *  of the sparse character of large io tables.
+ *  This extends the base class Technique to add possible co-products
+ *
+ *   Copyright (C) 2018 William Paul Cockshott
+ *   Copyright (C) 2022 Gabriel James Bauer
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see https://www.gnu.org/licenses/.
+ */
 public class JointProductionTechnique extends Technique {
     /** note the coproducts are in addition to the main product */
     double [] coproductOutput;
     int [] coproductCodes;
-    /** create technique with <p>prinicipal output code PC and
-     * <p>grossoutput gO<p>
-     * usage of inputs given by usage<p>
+    /** create technique with prinicipal output code PC and
+     * grossoutput gO
+     * usage of inputs given by usage
      * the identity of the inputs by codes<p>
-     * the quantity of coproduct outputs by cooutput<p>
-     * the identity of the coproducts by cooutputcodes<p> note the coproducts are in addition to the main product */
+     * the quantity of coproduct outputs by cooutput
+     * the identity of the coproducts by cooutputcodes note the coproducts are in addition to the main product */
     public  JointProductionTechnique (String id, double gO, double[] usage,int[]codes,double[] cooutput,int[] cooutputcodes) {
         super(id,   gO,   usage, codes);
         coproductCodes=cooutputcodes;
