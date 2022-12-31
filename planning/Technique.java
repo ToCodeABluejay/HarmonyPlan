@@ -1,24 +1,25 @@
 package planning;
 import java.util.*;
 /** A class to represent a set of production technologies in a more compact
-  form than as an input output table or matrix. It can take advantage
-  of the sparse character of large io tables.
-  <p>
-       Copyright (C) 2018 William Paul Cockshott
-
-       This program is free software: you can redistribute it and/or modify
-       it under the terms of the GNU General Public License as published by
-       the Free Software Foundation, either version 3 of the License, or
-       (at your option) any later version.
-
-       This program is distributed in the hope that it will be useful,
-       but WITHOUT ANY WARRANTY; without even the implied warranty of
-       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-       GNU General Public License for more details.
-
-       You should have received a copy of the GNU General Public License
-       along with this program.  If not, see https://www.gnu.org/licenses/.
-    * */
+ *  form than as an input output table or matrix. It can take advantage
+ *  of the sparse character of large io tables.
+ *
+ *   Copyright (C) 2018 William Paul Cockshott
+ *   Copyright (C) 2022 Gabriel James Bauer
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see https://www.gnu.org/licenses/.
+ */
 public class Technique {
     String identifier;
     int  productCode;
@@ -33,14 +34,14 @@ public class Technique {
      * correspondence to the usage entries */
     public  Technique (String id, double gO, double[] usage,int[]codes) {
         identifier=id;
-        //productCode=PC;   //Appeared redundant in codebase - so removed
         grossOutput=gO;
         inputUsage=usage;
         inputCodes=codes;
     }
-    /** tells you the rate of harmony gain per unit of input where both output and input are
+    public double rateOfHarmonyGain(double[]derivativeOfProductHarmony)
+    /** return you the rate of harmony gain per unit of input where both output and input are
      * measured in contribution to total harmony */
-    public double rateOfHarmonyGain(double[]derivativeOfProductHarmony) {
+    {
         double gain = derivativeOfProductHarmony[ productCode]* grossOutput;
         double cost=0;
         for(int j=0; j< inputCodes.length; j++) {
@@ -52,10 +53,9 @@ public class Technique {
         for (int j=0; j<a.length; j++)if(a[j]==i)return j;
         return -1;
     }
-    /** return the marginal physical product of the output good in terms
-     * of one extra unit of the input */
     public double  marginalphysicalproduct(int    input) {
-
+        /** return the marginal physical product of the output good in terms
+         * of one extra unit of the input */
         int pos =findiIna(input,  inputCodes);
         return  grossOutput/  inputUsage[pos];
     }
