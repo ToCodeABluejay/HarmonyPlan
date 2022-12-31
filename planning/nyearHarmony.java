@@ -1,26 +1,26 @@
 package planning;
 import java.util.*;
 /** Another programme to construct 5 year or n year socialist plans
- *<p>
- * It uses the Harmony algorithm to solve the plan<p>
+ *
+ * It uses the Harmony algorithm to solve the plan
  * Usage java planning.nyearplan flowmatrix.csv capitalmatrix.csv depreciationmatrix.csv laboursupplyandtargets.csv
  *
- * <p>
-    Copyright (C) 2018 William Paul Cockshott
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see https://www.gnu.org/licenses/.
- * */
+ *
+ *   Copyright (C) 2018 William Paul Cockshott
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see https://www.gnu.org/licenses/.
+ */
 public class nyearHarmony {
     static final int flow=0,cap=1,dep=2,targ=3;
     static String [][] rowheads = new String[4][1];
@@ -122,7 +122,7 @@ public class nyearHarmony {
                 // add a production technology for each definite product
                 for(int i=1; i<=maxprod; i++)
                 {   double [] usage = new double[countinputsTo(i)];
-                    int  [] codes = new int[countinputsTo(i)];
+                    int [] codes = new int[countinputsTo(i)];
                     int j=0;
                     for(int k=1; k<=maxprod+1; k++) {
                         if (matrices[flow][k][i]>0) {
