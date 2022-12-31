@@ -7,6 +7,7 @@ import java.util.*;
  *
  *
  *   Copyright (C) 2018 William Paul Cockshott
+ *   Copyright (C) 2022 Gabriel James Bauer
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
