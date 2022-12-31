@@ -36,9 +36,5 @@ public class Harmony {
         double base = H(target,netoutput);
         double basePlusEpsilon = H(target, epsilon+netoutput);
         return (basePlusEpsilon - base)/epsilon;
-        // Analytic soln
-        //  double scale =  (netoutput-target  )/target;
-        //  if (scale<0) return 1-scale;
-        //  return 1/(1+scale);
     }
 }
